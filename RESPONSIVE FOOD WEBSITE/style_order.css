@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body::before{  /*seudo selectors */
+    content: "";
+    position: absolute;
+    background-image: url('images/bread-g6541ee56d_1280.png');
+    height:100%;
+    width: 100%;
+    z-index: -1;
+    opacity: 0.3;
+    background-size: 100vw 100vh;
+}
+.formbox{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+h1{
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 30px;
+    color: rgb(14, 13, 13);
+}
+form label{
+    font-weight: bold;
+    font-size: 20px;
+    width: 30px;
+    display: inline-block;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+}
+form input{
+    margin-left:80px;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 20px;
+}
+#submit{
+    background-color: rgb(66, 56, 56);
+    color: white;
+    width: 5vw;
+    height: 5vh;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+#reset{
+    background-color: rgb(77, 66, 66);
+    color: white;
+    width: 5vw;
+    height: 5vh;
+    margin-left: 100px;
+    cursor: pointer;
+    border-radius: 5px;
+} 
+#submit:hover{
+    background-color: rgba(0, 0, 0, 0.938);
+}
+#reset:hover{
+    background-color: rgba(0, 0, 0, 0.938);
+}
