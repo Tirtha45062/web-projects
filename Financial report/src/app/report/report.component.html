@@ -1,0 +1,520 @@
+<div class="report">
+    <div class="feedback_header">
+        <h3>Financial Report</h3>
+    </div>
+    <div class="report-body" *ngIf="!isSubmit">
+        <div class="upload">
+            <label for="myFile"><strong> Upload CSV</strong></label>
+            <input type="file" style="height:10vh;border:none;" id="myFile" name="csvupload" accept=".csv"
+                (change)="uploadfile($event)">
+            <button id="btn" *ngIf="button" (click)="uploadcsv()">Upload</button>
+            <div class="buttonload" *ngIf="filepopup"><i class="fa fa-spinner fa-spin"></i>Please Wait</div>
+        </div>
+        <form #reportForm="ngForm" (ngSubmit)="submit(reportForm)">
+            <div class="rowdiv1">
+                <div class="row g-4">
+                    <div class="col dropdown">
+                        <label for="bu_name">BU NAME:</label>
+                        <select name="BU_NAME" id="bu_name" ngModel (change)="buname($event)">
+                            <option value="Suiting">Suiting</option>
+                            <option value="Shirting B2C">Shirting B2C</option>
+                            <option value="RLCL">RLCL</option>
+                            <option value="Apparel">Apparel</option>
+                            <option value="Retail">Retail</option>
+                            <option value="MTM">MTM</option>
+                            <option value="Tailoring">Tailoring</option>
+                            <option value="Garmenting">Garmenting</option>
+                            <option value="BnB">BnB</option>
+                        </select>
+                        <div class="span" *ngIf="bupopup"><span class="popuptext"
+                                id="myPopup"><strong>{{message}}</strong></span></div>
+                    </div>
+                    <div class="col dropdown">
+                        <label for="budget">Budget/Actual:</label>
+                        <select name="BUDGET_OR_ACTUAL" id="budget" ngModel (change)="budg($event)">
+                            <option value="budget">Budget</option>
+                            <option value="actual">Actual</option>
+                        </select>
+                        <div class="span" *ngIf="budgetpopup"><span class="popuptext"
+                                id="myPopup"><strong>{{message}}</strong></span></div>
+                    </div>
+                    <div class="col" style="display: flex;">
+                        <label for="period">Period:&nbsp;&nbsp;</label>
+                        <input type="month" class="form-control" id="period" placeholder="Period" name="PERIOD" ngModel
+                            (change)="per($event)">
+                        <div class="span" *ngIf="periodpopup"><span class="popuptext"
+                                id="myPopup"><strong>{{message}}</strong></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="net_sales">NET SALES:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="net_sales" placeholder="" name="NET_SALES" ngModel
+                            (keyup)="add1($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="other_operating_income">OTHER OPERATING INCOME:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="other_op_income" placeholder=""
+                            name="OTHER_OPERATING_INCOME" ngModel (keyup)="add1($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="other_income">OTHER INCOME:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="other_income" placeholder="" name="OTHER_INCOME"
+                            ngModel (keyup)="add1($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">REVENUE FROM OPERATIONS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="rev_op" placeholder=""
+                            name="REVENUE_FROM_OPERATIONS" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">COGS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="cogs" placeholder="" name="COGS" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">MATERIAL COSTS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="mat_cost" placeholder="" name="MATERIAL_COSTS_COGS"
+                            ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">MFG COSTS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="mfg_costs" placeholder="" name="MFG_COSTS_COGS" ngModel
+                            readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">STORES AND SPARES:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="st_sp" placeholder="" name="STORES_AND_SPARES_COGS"
+                            ngModel (keyup)="add3($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">POWER FUEL:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="power_fuel" placeholder="" name="POWER_AND_FUEL_COGS" ngModel
+                            (keyup)="add3($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">JOB WORK:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="job_work" placeholder="" name="JOB_WORK_COGS" ngModel
+                            (keyup)="add3($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">REPAIRS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="repairs" placeholder="" name="REPAIRS_COGS" ngModel
+                            (keyup)="add3($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">OTHERS EXCLUDING CONTRACT LABOUR:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="other_ex_con_lab" placeholder=""
+                            name="OTHERS_EXCLUDING_CONTRACT_LABOUR_COGS" ngModel (keyup)="add3($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">GROSS MARGIN:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="gross_margin" placeholder="" name="GROSS_MARGIN"
+                            ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">GM PERCENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="gm_percent" placeholder="" name="GM_PERCENT" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">EMPLOYEE BENEFITS EXPENSE:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="emp_benifit" placeholder="" name="EMPLOYEE_BENEFITS_EXPENSE_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">ADVT SALES PROMO:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="ad_sales" placeholder="" name="ADVT_AND_SALES_PROMO_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">COMM:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="comm" placeholder="" name="COMM_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">FREIGHT OCTROI:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="freight_cor" placeholder="" name="FREIGHT_AND_OCTROI_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">TRAVELLING:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="travelling" placeholder="" name="TRAVELLING_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">LEGAL PROF CHARGES:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="legal_prof_charge" placeholder="" name="LEGAL_AND_PROF_CHARGES_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">RENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="rent" placeholder="" name="RENT_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">MAINT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="maint" placeholder="" name="MAINT_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">OTHERS OPEX:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="other_opex" placeholder="" name="OTHERS_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CORPORATE ALLOCATION:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="corp_alloc" placeholder="" name="CORPORATE_ALLOCATION_OPEX" ngModel (keyup)="add4($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">TOTAL OPEX:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="total_opex" placeholder="" name="TOTAL_OPEX" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">EBITDA:&nbsp;&nbsp;</label>
+                        <input type="text" id="ebitda" class="form-control" placeholder="" name="EBITDA"
+                             ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">EBITDA PERCENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="ebitda_percent" placeholder="" name="EBITDA_PERCENT" ngModel readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">DEP AMORT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="dep_amort" placeholder="" name="DEP_AND_AMORT" ngModel (keyup)="sub1($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">EBIT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="ebit" placeholder="" name="EBIT" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">EBIT PERCENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="ebit_percent" placeholder="" name="EBIT_PERCENT" ngModel readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">INTEREST OR INTEREST COST ALLOCATION:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="inter_cos_alloc" placeholder=""
+                            name="INTEREST_UPON_INTEREST_COST_ALLOCATION" ngModel (keyup)="pbt($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">PBT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="pbt" placeholder="" name="PBT" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">PBT PERCENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="pbt_percent" placeholder="" name="PBT_PERCENT" ngModel readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">EXC ITEMS:&nbsp;&nbsp;</label>
+                        <input type="text" id="exc_items" class="form-control" placeholder="" name="EXC_ITEMS"
+                            (keyup)="exc_items($event)" (keyup)="pbt($event)" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">PBT AFTER EXCEPT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="pbt_after" placeholder="" name="PBT_AFTER_EXCEPT" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">PBT PERCENT AFTER EXCEPT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="pbt_percent_after" placeholder="" name="PBT_PERCENT_AFTER_EXCEPT" ngModel readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">TAX:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="tax" placeholder="" name="TAX" ngModel (keyup)="pat($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">PAT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="pat" placeholder="" name="PAT" ngModel readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">PAT PERCENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="pat_percent" placeholder="" name="PAT_PERCENT" ngModel readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">SHARE CAPITAL:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="share_capital" placeholder="" name="SHARE_CAPITAL" ngModel (keyup)="add5($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">RESERVES:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="reserves" placeholder="" name="RESERVES" ngModel (keyup)="add5($event)">
+                    </div>
+                    <div class="col-sm">
+                        <label for="">NETWORTH:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" id="networth" placeholder="" name="NETWORTH" ngModel readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">MINORITY INTEREST:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="MINORITY_INTEREST" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">LOANS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="LOANS" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">SOURCES OF FUNDS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="SOURCES_OF_FUNDS" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">GROSS BLOCK:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="GROSS_BLOCK" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">ACC DEP:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="ACC_DEP" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">NET BLOCK:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="NET_BLOCK" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">CWIP:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CWIP" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">INVESTMENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="INVESTMENT" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CASH:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CASH" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">STOCK:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="STOCK" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">DEBTORS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="DEBTORS" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">OTHERS GCA:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="OTHERS" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">TOTAL GCA:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="TOTAL_GCA" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">LIABILITIES:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="LIABILITIES" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">NCA:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="NCA" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">DTA OR DTL:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="DTA_UPON_DTL" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">APPLICATION OF FUNDS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="APPLICATION_OF_FUNDS" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">EBITDA:&nbsp;&nbsp;</label>
+                        <input type="text" id="ebitda2" class="form-control" placeholder="" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">TAX EXP OR CREDIT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="TAX_EXP_UPON_CREDIT" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">DTA OR DTL CURRENT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="DTA_UPON_DTL_CURRENT" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">DTA OR DTL PREVIOUS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="DTA_UPON_DTL_PREVIOUS" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">NET DTA:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="NET_DTA" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">EXC ITEMS:&nbsp;&nbsp;</label>
+                        <input type="text" id="exc_items2" class="form-control" placeholder="" readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CASH PROFIT:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CASH_PROFIT" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">WORKING CAPITAL CHANGES:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="WORKING_CAPITAL_CHANGES" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CHANGES IN INVENTORY:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CHANGES_IN_INVENTORY" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CHANGES IN DEBTORS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CHANGES_IN_DEBTORS" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">CHANGES IN OTHER CURRENT ASSETS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CHANGES_IN_OTHER_CURRENT_ASSETS"
+                            ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CURRENT LIABILITIES CHANGES:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CURRENT_LIABILITIES_CHANGES"
+                            ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">NET CASH GENERATED FROM OPERATIONS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="NET_CASH_GENERATED_FROM_OPERATIONS"
+                            ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv" id="enddiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">INTEREST:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="INTEREST" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">NET CASH GENERATION AFTER INTEREST:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="NET_CASH_GENERATION_AFTER_INTEREST"
+                            ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CAP EXP:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CAP_EXP" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv" id="enddiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">NET CASH GENERATION AFTER CAPEX:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="NET_CASH_GENERATION_AFTER_CAPEX"
+                            ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">MOVEMENT IN INV:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="MOVEMENT_IN_INV" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="" style="word-break: break-all;">MOVEMENT IN RESERVES ASSOCIATES
+                            MINORITY:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder=""
+                            name="MOVEMENT_IN_RESERVES_ASSOCIATES_AND_MINORITY" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv" id="enddiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="">TOTAL CASH FLOW:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="TOTAL_CASH_FLOW" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">LOAN MOVEMENTS:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="LOAN_MOVEMENTS" ngModel>
+                    </div>
+                    <div class="col-sm">
+                        <label for="">CASH BANK OB:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CASH_AND_BANK_OB" ngModel>
+                    </div>
+                </div>
+            </div>
+            <div class="rowdiv">
+                <div class="row1 g-4" style="word-break: break-all;">
+                    <div class="col-sm">
+                        <label for="" style="text-align: left;">CASH BANK CB:&nbsp;&nbsp;</label>
+                        <input type="text" class="form-control" placeholder="" name="CASH_AND_BANK_CB" ngModel>
+                    </div>
+                </div>
+            </div>
+            <button> Submit</button>
+        </form>
+    </div>
+    <div class="status" *ngIf="isSubmit">
+        <img src="assets/Thank_you.png" alt="" />
+        <h1>Report Submitted Successfully</h1>
+        <button type="button" (click)="back()">Back</button>
+    </div>
+</div>
