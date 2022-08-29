@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+
+$khol: #000000;
+$aamras: #ffa300;
+$sharbati: #d50032;
+$gulabi: #d0006f;
+$ferozi: #5cb8b2;
+$baigani: #500778;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "geometria", "Segoe UI", Tahoma, Verdana, sans-serif;
+  font-size: small;
+  background-color: #f2f5fa;
+}
+
+.bg-khol {
+  background-color: $khol;
+  color: #ffffff;
+}
+.bg-aamras {
+  background-color: $aamras;
+  color: #ffffff;
+}
+.bg-sharbati {
+  background-color: $sharbati;
+  color: #ffffff;
+}
+.bg-gulabi {
+  background-color: $gulabi;
+  color: #ffffff;
+}
+.bg-ferozi {
+  background-color: $ferozi;
+  color: #ffffff;
+}
+.bg-baigani {
+  background-color: $baigani;
+  color: #ffffff;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.required {
+  color: red !important;
+}

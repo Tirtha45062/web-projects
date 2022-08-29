@@ -1,0 +1,84 @@
+$khol: #000000;
+$aamras: #ffa300;
+$sharbati: #d50032;
+$gulabi: #d0006f;
+$ferozi: #5cb8b2;
+$baigani: #500778;
+$white: #ffffff;
+
+.image-page {
+  height: 90vh;
+  width: 100%;
+  background-color: azure;
+  overflow-y: auto;
+  .show-image {
+    height: auto;
+    padding-left: 17px;
+    .row {
+      width: 100%;
+      .card {
+        width: 14.8%;
+        background-color: blue;
+        color: white;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 5px;
+        img {
+          width: auto;
+          height: 130px;
+          transition: 0.3s ease-in-out;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+        h5 {
+          text-align: center;
+          padding-top: 10px;
+        }
+      }
+    }
+    #pagination {
+      width: 40%;
+      background-color: blueviolet;
+      font-size: medium;
+      margin: auto;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .text-center {
+      margin-top: 25%;
+    }
+  }
+}
+
+.image-page::-webkit-scrollbar {
+  display: none;
+}
+
+#newFileModal {
+  #image-show {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  .modal-footer button {
+    color: white;
+  }
+}
+
+#largeImageModal {
+  height: auto;
+  width: auto;
+  .modal-header {
+    height: 20px;
+    h5 {
+      padding-top: 7px;
+    }
+  }
+  .modal-body {
+    padding: 10px;
+  }
+  .modal-footer button {
+    background-color: red;
+    color: white;
+    width: 80px;
+  }
+}

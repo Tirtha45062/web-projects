@@ -1,0 +1,238 @@
+<!-- Image Page Div -->
+<div class="image-page" id="image-div">
+  <div class="show-image">
+    <!-- Pagination -->
+    <div id="pagination" *ngIf="!isLoading && imageArray.length >= 1">
+      <pagination-controls
+        id="listing_pagination"
+        maxSize="5"
+        directionLinks="true"
+        (pageChange)="page = $event"
+      ></pagination-controls>
+    </div>
+    <!-- Loading -->
+    <div class="text-center" *ngIf="isLoading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <!-- No image found -->
+    <div class="text-center" *ngIf="imageArray.length <= 0">
+      <div class="no-image" style="font-size: 20px">No image found</div>
+    </div>
+    <div class="row">
+      <!-- Show Image -->
+      <div
+        class="card col-md-2"
+        *ngFor="
+          let image of imageArray
+            | filter: filter.getFilter()
+            | paginate
+              : {
+                  id: 'listing_pagination',
+                  itemsPerPage: 20,
+                  currentPage: page,
+                  totalItems: totalLength
+                };
+          let i = index
+        "
+      >
+        <img
+          [src]="image.imagePath"
+          id="image"
+          class="d-block w-100"
+          (click)="largeimage(image.imagePath, image.title)"
+          data-bs-toggle="modal"
+          data-bs-target="#largeImageModal"
+        />
+        <h5>{{ image.title }}</h5>
+        <span style="text-align: right; font-size: large"
+          ><i
+            class="fas fa-trash"
+            data-bs-toggle="modal"
+            data-bs-target="#imageDeleteModal"
+            (click)="deleteImage(image.id)"
+          ></i
+        ></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Upload Modal -->
+<div
+  class="modal fade"
+  id="newFileModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+        <fieldset>
+          <div class="modal-body">
+            <!-- Image select -->
+            <div class="image-select">
+              <label>
+                <span>Select Image</span><br />
+                <input
+                  id="photo"
+                  #imageInput
+                  type="file"
+                  accept="image/*"
+                  (change)="onselectFile($event)"
+                  formControlName="photo"
+                />
+              </label>
+            </div>
+            <div id="image-show">
+              <img
+                [src]="img"
+                alt="No Image Select"
+                height="150px"
+                width="150px"
+              />
+            </div>
+            <!-- Name -->
+            <div class="form-group mb-0">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="Name"
+                aria-describedby="NameHelp"
+                placeholder="Enter Image Name"
+                tabindex="0"
+                role="text"
+                formControlName="title"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="imageclose"
+              class="btn btn-sm"
+              data-bs-dismiss="modal"
+              style="background-color: red"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              [disabled]="!uploadForm.valid"
+              class="btn btn-sm"
+              style="background-color: darkblue"
+            >
+              Upload
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Large Image Modal -->
+<div
+  class="modal fade"
+  id="largeImageModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>{{ title }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="largeimg" alt="" />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="close"
+          class="btn btn-sm"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Image Progress Modal -->
+<!-- <div
+  class="modal fade"
+  id="progressModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-dismiss="modal"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 style="color: green">Image Uploding....</h5>
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            aria-valuenow="75"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style="width: 100%"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Image Delete Modal -->
+<div
+  class="modal fade"
+  id="imageDeleteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>Are You Sure Want To Delete This Image ?</h5>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          id="imageDelete"
+          type="button"
+          class="btn btn-sm"
+          data-bs-dismiss="modal"
+          style="background-color: rgb(214, 23, 23); color: white"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm"
+          style="background-color: darkblue; color: white"
+          (click)="confirmDelete()"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

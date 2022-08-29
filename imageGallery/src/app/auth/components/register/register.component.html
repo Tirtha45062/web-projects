@@ -1,0 +1,155 @@
+<!-- Register Div -->
+<div class="content-wrapper" id="signup">
+  <div class="register-box">
+    <div class="card shadow-sm">
+      <div class="card-body px-0">
+        <form
+          class="signupForm"
+          [formGroup]="registerForm"
+          (ngSubmit)="validateCredential(registerForm)"
+        >
+          <div class="form-header">
+            <h1 class="text-center text-header">Sign Up</h1>
+          </div>
+          <fieldset class="py-3">
+            <!-- Full Name -->
+            <div class="form-row mb-3">
+              <div class="input-group">
+                <label for="name" hidden></label>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  placeholder="Enter Full Name"
+                  formControlName="name"
+                />
+                <span class="text-danger" *ngIf="alert.error.name.length > 0">{{
+                  alert.error.name
+                }}</span>
+              </div>
+            </div>
+            <!-- Email Id -->
+            <div class="form-row mb-3">
+              <div class="input-group">
+                <label for="email" hidden></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Email"
+                  formControlName="email"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="alert.error.email.length > 0"
+                  >{{ alert.error.email }}</span
+                >
+              </div>
+            </div>
+            <!-- Password -->
+            <div class="form-row mb-3">
+              <div class="input-group">
+                <label for="password" hidden></label>
+                <input
+                  type="password"
+                  id="pw"
+                  class="form-control"
+                  placeholder="Enter Password"
+                  aria-describedby="passwordHelp"
+                  formControlName="password"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="alert.error.password.length > 0"
+                  >{{ alert.error.password }}</span
+                >
+              </div>
+            </div>
+            <!-- Confirm Password -->
+            <div class="form-row mb-3">
+              <div class="input-group">
+                <label for="rePassword" hidden></label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="repw"
+                  placeholder="Re-Enter Password"
+                  formControlName="confirmPassword"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="alert.error.confirmPassword.length > 0"
+                  >{{ alert.error.confirmPassword }}</span
+                >
+              </div>
+            </div>
+            <!-- Captcha -->
+            <label style="font-size: 15px; margin-bottom: 10px"
+              >Enter Captcha</label
+            >
+            <div class="form-row mb-3" style="height: 50px">
+              <div class="input-group" style="width: 45%; float: left">
+                <input type="text" id="capt" class="form-control" readonly />
+              </div>
+              <div
+                class="input-group"
+                style="width: 45%; float: left; margin-left: 10%"
+              >
+                <input type="text" id="testCapt" class="form-control" />
+              </div>
+            </div>
+            <h6>
+              Captcha not visible &nbsp;&nbsp;&nbsp;<i
+                class="fas fa-sync-alt"
+                (click)="cap()"
+              ></i>
+            </h6>
+            <div class="form-row mb-3" style="height: 30px">
+              <div
+                class="input-group"
+                style="width: 2%; float: left; margin-top: 6px"
+              >
+                <input
+                  type="checkbox"
+                  id="termcondition"
+                  formControlName="termsAndConditions"
+                />
+              </div>
+              <!-- Term and Condition -->
+              <div
+                class="input-group"
+                style="width: 93%; float: left; margin-left: 5%"
+              >
+                <label style="font-size: 15px"
+                  >I accept all term and condition</label
+                >
+              </div>
+              <span
+                class="text-danger"
+                *ngIf="alert.error.termsAndConditions.length > 0"
+                >{{ alert.error.termsAndConditions }}</span
+              >
+            </div>
+            <span class="text-danger">{{ message.error }}</span>
+            <span style="color: green">{{ message.success }}</span>
+            <div class="form-row mt-4 pt-3">
+              <div class="btn-grp text-center">
+                <button
+                  class="btn btn-flat bg-gulabi mb-2"
+                  [disabled]="!registerForm.valid"
+                >
+                  <b> Register </b>
+                </button>
+                <a
+                  routerLink="/login"
+                  class="createLink"
+                  style="font-size: 15px; color: blue"
+                  ><b>Login</b></a
+                >
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

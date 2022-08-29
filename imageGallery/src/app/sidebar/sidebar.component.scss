@@ -1,0 +1,57 @@
+$khol: #000000;
+$aamras: #ffa300;
+$sharbati: #d50032;
+$gulabi: #d0006f;
+$ferozi: #5cb8b2;
+$baigani: #500778;
+$white: #ffffff;
+
+.sidebar {
+  width: 100%;
+  height: 90vh;
+  background-color: darkblue;
+  .profile {
+    padding-top: 30px;
+    text-align: center;
+    img {
+      width: 50px;
+      height: 45px;
+      border-radius: 50%;
+      margin: auto;
+    }
+    h4 {
+      color: #ffffff;
+    }
+  }
+  ul {
+    list-style-type: none;
+    padding-left: 0px;
+    li a {
+      display: block;
+      padding: 10px 10px;
+      border-bottom: 1px solid #10558d;
+      color: white;
+      font-size: 16px;
+      .icon {
+        color: #dee4ec;
+      }
+    }
+  }
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  color: #0c7db1;
+  background: white;
+  border-right: 2px solid rgb(5, 68, 104);
+}
+
+.sidebar ul li a:hover .icon,
+.sidebar ul li a.active .icon {
+  color: #0c7db1;
+}
+
+.sidebar ul li a:hover:before,
+.sidebar ul li a.active:before {
+  display: block;
+}

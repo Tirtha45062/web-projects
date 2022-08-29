@@ -1,0 +1,235 @@
+<!-- Dashboard Div -->
+<div class="dashboard">
+  <!-- Folder Div -->
+  <div class="show-folder" *ngIf="filter.show()" id="folder-div">
+    <!-- Page Loading Spinner -->
+    <div class="text-center" *ngIf="isLoading">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <!-- No Folder found -->
+    <div class="text-center" *ngIf="folderArray.length<=0"><div class="no-folder" style="font-size:20px;">No folder found</div></div>
+    <div class="row">
+      <div
+        class="card col-md-2"
+        *ngFor="let folder of folderArray; let i = index"
+      >
+        <img src="{{ randomImage[i] }}" (click)="getAllPhoto(folder.id)" />
+        <h5><i class="fas fa-folder"></i>{{ folder.name }}</h5>
+        <span style="text-align: right; font-size: large"
+          ><i
+            class="fas fa-trash"
+            data-bs-toggle="modal"
+            data-bs-target="#folderDeleteModal"
+            (click)="folderDelete(folder.id)"
+          ></i
+        ></span>
+      </div>
+    </div>
+  </div>
+  <!-- Global Search Div -->
+  <div class="show-image" *ngIf="!filter.show()" id="image-div">
+    <div class="row">
+      <div
+        class="card col-md-2"
+        *ngFor="
+          let image of allImageArray | filter: filter.getFilter();
+          let i = index
+        "
+      >
+        <img
+          [src]="image.imagePath"
+          id="image"
+          class="d-block w-100"
+          (click)="largeimage(image.imagePath, image.title)"
+          data-bs-toggle="modal"
+          data-bs-target="#largeImageModal"
+        />
+        <h5>{{ image.title }}</h5>
+        <span style="text-align: right; font-size: large"
+          ><i
+            class="fas fa-trash"
+            data-bs-toggle="modal"
+            data-bs-target="#imageDeleteModal"
+            (click)="deleteImage(image.id)"
+          ></i
+        ></span>
+      </div>
+    </div>
+  </div>
+  <!-- Account Div -->
+  <!-- <div class="accounts" id="account-div">
+    <div
+      class="account-div"
+      *ngFor="let account of accountArray; let i = index"
+    >
+      <i class="fas fa-user"></i>&nbsp;&nbsp;
+      <h5>{{ account.name }}</h5>
+    </div>
+  </div> -->
+</div>
+
+<!-- Folder Create Modal -->
+<div
+  class="modal fade"
+  id="newFolderModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <form [formGroup]="folderForm" (ngSubmit)="onSubmit()">
+        <fieldset>
+          <div class="modal-body">
+            <!-- Name -->
+            <div class="form-group mb-2">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="Name"
+                aria-describedby="NameHelp"
+                placeholder="Enter Gallery Name"
+                tabindex="0"
+                role="text"
+                formControlName="name"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="folderclose"
+              class="btn btn-sm"
+              data-bs-dismiss="modal"
+              style="background-color: red"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              [disabled]="!folderForm.valid"
+              class="btn btn-sm"
+              style="background-color: darkblue"
+            >
+              Create
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Large Image Modal -->
+<div
+  class="modal fade"
+  id="largeImageModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>{{ title }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="largeimg" alt="" />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="close"
+          class="btn btn-sm"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Folder Delete Modal -->
+<div
+  class="modal fade"
+  id="folderDeleteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>
+          Are You Sure Want To Delete This Folder and Contain All Images ?
+        </h5>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          id="folderDelete"
+          type="button"
+          class="btn btn-sm"
+          data-bs-dismiss="modal"
+          style="background-color: rgb(214, 23, 23); color: white"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm"
+          style="background-color: darkblue; color: white"
+          (click)="confirmDelete()"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Delete Modal -->
+<div
+  class="modal fade"
+  id="imageDeleteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>Are You Sure Want To Delete This Image ?</h5>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          id="imageDelete1"
+          type="button"
+          class="btn btn-sm"
+          data-bs-dismiss="modal"
+          style="background-color: rgb(214, 23, 23); color: white"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm"
+          style="background-color: darkblue; color: white"
+          (click)="confirmDeleteImage()"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

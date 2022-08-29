@@ -1,0 +1,43 @@
+<!-- Sidebar Div -->
+<div class="sidebar">
+  <div class="profile">
+    <!-- Profile Photo and Name -->
+    <img src="assets/img/image1.png" alt="Profile Picture"  *ngIf="!profile"/>
+    <img src="{{profilepic1}}" alt="Profile Picture"  *ngIf="profile" />
+    <h4>{{ name }}</h4>
+    <!-- Sidebar Options -->
+    <ul>
+      <li class="active">
+        <a routerLink="/gallery">
+          <span class="icon"><i class="fas fa-home"></i></span><br />
+          <span class="item"><b>Home</b></span>
+        </a>
+      </li>
+      <li>
+        <a data-bs-toggle="modal" data-bs-target="#newFolderModal">
+          <span class="icon"><i class="fas fa-folder-plus"></i></span><br />
+          <span class="item"><b>New Gallery</b></span>
+        </a>
+      </li>
+      <li>
+        <a data-bs-toggle="modal" data-bs-target="#newFileModal">
+          <span class="icon"><i class="fas fa-cloud-upload-alt"></i></span
+          ><br />
+          <span class="item"><b>Upload Image</b></span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/gallery/contact">
+          <span class="icon"><i class="fas fa-address-card"></i></span><br />
+          <span class="item"><b>Contact</b></span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/gallery/about">
+          <span class="icon"><i class="fas fa-info"></i></span><br />
+          <span class="item"><b>About</b></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

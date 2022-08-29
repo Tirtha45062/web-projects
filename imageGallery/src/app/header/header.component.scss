@@ -1,0 +1,117 @@
+$khol: #000000;
+$aamras: #ffa300;
+$sharbati: #d50032;
+$gulabi: #d0006f;
+$ferozi: #5cb8b2;
+$baigani: #500778;
+$white: #ffffff;
+
+#header {
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 10vh;
+  border: 1px solid black;
+  .top-nav {
+    background-color: $baigani;
+    height: 10vh;
+    border: 1px dashed $baigani;
+    padding: 1px 1rem;
+    font-size: 20px;
+    h3 {
+      color: #fff;
+      margin-top: 1.5vh;
+      i {
+        color: cyan;
+      }
+    }
+    form {
+      height: 30px;
+      width: 30%;
+      margin: auto;
+      display: flex;
+      i {
+        width: 30px;
+        background-color: #fff;
+        color: blue;
+        padding-top: 5px;
+        padding-left: 5px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+      .form-control {
+        border-radius: 0px 10px 10px 0px;
+        height: 30px;
+        padding-top: 0px;
+      }
+    }
+    .nav-item {
+      h5 {
+        font-size: 15px;
+        margin: auto;
+      }
+      .navbar-nav .nav-item {
+        a {
+          color: #ffff;
+        }
+        .dropdown-menu {
+          background-color: blueviolet;
+          a {
+            border-bottom: 1px solid white;
+            color: white;
+            i {
+              margin-right: 7px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropdown-menu li a:hover {
+  background-color: #500778;
+  color: white;
+}
+
+#profileEditModal {
+  .modal-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+  }
+  .modal-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    .form-label {
+      font-size: 15px;
+    }
+  }
+  .modal-footer {
+    padding: 5px;
+    button {
+      color: white;
+    }
+  }
+}
+
+  #profilePicture{
+    .modal-header {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 10px;
+    }
+    .modal-body {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      .form-label {
+        font-size: 15px;
+      }
+    }
+    .modal-footer {
+      padding: 5px;
+      button {
+        color: white;
+      }
+    }
+  }

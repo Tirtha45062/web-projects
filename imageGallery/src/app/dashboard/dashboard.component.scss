@@ -1,0 +1,135 @@
+$khol: #000000;
+$aamras: #ffa300;
+$sharbati: #d50032;
+$gulabi: #d0006f;
+$ferozi: #5cb8b2;
+$baigani: #500778;
+$white: #ffffff;
+
+.dashboard {
+  height: 90vh;
+  width: 100%;
+  background-color: azure;
+  display: flex;
+  .show-folder {
+    height: 90vh;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 20px;
+    overflow-y: auto;
+    .text-center {
+      margin-top: 35%;
+    }
+    .row {
+      width: 100%;
+      .card {
+        width: 17.6%;
+        background-color: darkblue;
+        color: white;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 5px;
+        img {
+          width: auto;
+          height: 130px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+        h5 {
+          text-align: center;
+          padding-top: 10px;
+          i {
+            padding-right: 5px;
+          }
+        }
+      }
+    }
+  }
+  // .accounts {
+  //   height: 90vh;
+  //   width: 20%;
+  //   background-color: dodgerblue;
+  //   padding: 10px;
+  //   overflow-y: auto;
+  //   .account-div {
+  //     height: auto;
+  //     background-color: blueviolet;
+  //     color: white;
+  //     display: flex;
+  //     margin-bottom: 10px;
+  //     padding: 5px;
+  //     border-radius: 10px;
+  //     i {
+  //       height: 40px;
+  //       width: 40px;
+  //       font-size: 30px;
+  //       border-radius: 50%;
+  //       text-align: center;
+  //       border: 2px solid white;
+  //     }
+  //   }
+  // }
+  .show-image {
+    height: 90vh;
+    width: 100%;
+    padding-left: 20px;
+    float: left;
+    overflow-y: auto;
+    .row {
+      width: 100%;
+      .card {
+        width: 17.6%;
+        background-color: blue;
+        color: white;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 5px;
+        img {
+          width: auto;
+          height: 130px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+        h5 {
+          text-align: center;
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+#folder-div::-webkit-scrollbar {
+  display: none;
+}
+
+#account-div::-webkit-scrollbar {
+  display: none;
+}
+
+#image-div::-webkit-scrollbar {
+  display: none;
+}
+
+#newFolderModal .modal-footer button {
+  color: white;
+}
+
+#largeImageModal {
+  height: auto;
+  width: auto;
+  .modal-header {
+    height: 20px;
+    h5 {
+      padding-top: 7px;
+    }
+  }
+  .modal-body {
+    padding: 10px;
+  }
+  .modal-footer button {
+    width: 80px;
+    background-color: red;
+    color: white;
+  }
+}

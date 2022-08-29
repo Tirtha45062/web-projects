@@ -1,0 +1,94 @@
+<!-- Login Div -->
+<div class="content-wrapper" id="signin">
+  <div class="login-box">
+    <div class="card shadow-sm">
+      <div class="card-body px-0">
+        <form
+          class="signForm"
+          [formGroup]="loginForm"
+          (ngSubmit)="validateCredential(loginForm)"
+        >
+          <div class="form-header">
+            <h1 class="text-center text-header">Sign In</h1>
+          </div>
+          <fieldset class="py-3">
+            <!-- User Id -->
+            <div class="form-row mb-3">
+              <div class="input-group">
+                <label for="userID" hidden></label>
+                <input
+                  type="text"
+                  id="userID"
+                  class="form-control"
+                  placeholder="example@user.com"
+                  formControlName="email"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="alert.error.email.length > 0"
+                  >{{ alert.error.email }}</span
+                >
+              </div>
+            </div>
+            <!-- Password -->
+            <div class="form-row mb-3">
+              <div class="input-group">
+                <label for="password" hidden></label>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  formControlName="password"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="alert.error.password.length > 0"
+                  >{{ alert.error.password }}</span
+                >
+              </div>
+            </div>
+            <!-- Captcha -->
+            <label style="font-size: 15px; margin-bottom: 10px"
+              >Enter Captcha</label
+            >
+            <div class="form-row mb-3" style="height: 50px">
+              <div class="input-group" style="width: 45%; float: left">
+                <input type="text" id="capt" class="form-control" readonly />
+              </div>
+              <div
+                class="input-group"
+                style="width: 45%; float: left; margin-left: 10%"
+              >
+                <input type="text" id="testCapt" class="form-control" />
+              </div>
+            </div>
+            <h6>
+              Captcha not visible &nbsp;&nbsp;&nbsp;<i
+                class="fas fa-sync-alt"
+                (click)="cap()"
+              ></i>
+            </h6>
+            <!-- <div class="g-recaptcha" data-sitekey="6Lfl8X8fAAAAACLrkUcWYDZiZv91nF5VGHZiaTl3"></div> -->
+            <span class="text-danger">{{ message.error }}</span>
+            <div class="form-row mt-4 pt-3">
+              <div class="btn-grp text-center">
+                <button
+                  class="btn btn-flat bg-gulabi mb-2"
+                  [disabled]="!loginForm.valid"
+                >
+                  <b> Login</b>
+                </button>
+                <a
+                  routerLink="/register"
+                  class="createLink"
+                  style="font-size: 15px; color: blue"
+                  ><b>Create Account</b></a
+                >
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
